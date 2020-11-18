@@ -155,6 +155,7 @@ class MainScreen extends StatelessWidget {
               ),
             ),
             SlidingUpPanel(
+              controller: mainController.panelController,
               renderPanelSheet: false,
               onPanelOpened: () => mainController.unFocusTextField(context),
               minHeight: Get.pixelRatio * 17,
@@ -163,43 +164,49 @@ class MainScreen extends StatelessWidget {
               panel: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(Get.pixelRatio * 6)),
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(Get.pixelRatio * 6)),
                 ),
-                margin: EdgeInsets.fromLTRB(Get.pixelRatio * 4, 0, Get.pixelRatio * 4, Get.pixelRatio * 4),
+                margin: EdgeInsets.fromLTRB(Get.pixelRatio * 4, 0,
+                    Get.pixelRatio * 4, Get.pixelRatio * 4),
                 child: Center(
                   child: Text("This is the SlidingUpPanel when open"),
                 ),
               ),
-              collapsed: Container(
-                margin: EdgeInsets.fromLTRB(Get.pixelRatio * 4, 0, Get.pixelRatio * 4, 0),
-                decoration: BoxDecoration(
-                  color: Color(0xFF6f86d6),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(Get.pixelRatio * 6),
-                    topRight: Radius.circular(Get.pixelRatio * 6),
+              collapsed: GestureDetector(
+                onTap: () => mainController.panelController.open(),
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(
+                      Get.pixelRatio * 4, 0, Get.pixelRatio * 4, 0),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF6f86d6),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(Get.pixelRatio * 6),
+                      topRight: Radius.circular(Get.pixelRatio * 6),
+                    ),
                   ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: Get.width / (Get.pixelRatio / 2),
-                      height: Get.pixelRatio * 2,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(.7),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(100),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: Get.width / (Get.pixelRatio / 2),
+                        height: Get.pixelRatio * 2,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(.7),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(100),
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: Get.pixelRatio * 3,
-                    ),
-                    Text(
-                      'Histori nge-WA mu',
-                      style: GoogleFonts.roboto(color: Colors.white),
-                    )
-                  ],
+                      SizedBox(
+                        height: Get.pixelRatio * 3,
+                      ),
+                      Text(
+                        'Histori nge-WA mu',
+                        style: GoogleFonts.roboto(color: Colors.white),
+                      )
+                    ],
+                  ),
                 ),
               ),
               borderRadius: BorderRadius.only(

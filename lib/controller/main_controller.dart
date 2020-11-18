@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wameclient/utils/utils.dart';
 
@@ -8,6 +9,7 @@ class MainController extends GetxController {
   TextEditingController textEditingControllerNo = TextEditingController();
   MaskTextInputFormatter textMaskTelephone = MaskTextInputFormatter(
       mask: '+## ###-####-####-#', filter: {'#': RegExp(r'[0-9]')});
+  PanelController panelController = PanelController();
 
   void waNow({String nomer}) async {
     String newNomer;
