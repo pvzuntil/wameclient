@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:wameclient/screen/main_screen.dart';
 import 'package:wameclient/utils/utils.dart';
 
 class MainController extends GetxController {
@@ -10,6 +11,9 @@ class MainController extends GetxController {
   MaskTextInputFormatter textMaskTelephone = MaskTextInputFormatter(
       mask: '+## ###-####-####-#', filter: {'#': RegExp(r'[0-9]')});
   PanelController panelController = PanelController();
+
+  var isOpenSlider = false.obs;
+  var isLoadingData = true.obs;
 
   void waNow({String nomer}) async {
     String newNomer;
@@ -30,10 +34,33 @@ class MainController extends GetxController {
     // TODO Belom slesai disini
   }
 
-  void unFocusTextField(BuildContext context) {
+  void eventOpenSlider(BuildContext context) {
     FocusScopeNode focusScopeNode = FocusScope.of(context);
     if (!focusScopeNode.hasPrimaryFocus) {
       focusScopeNode.unfocus();
     }
+
+    print('terbuka');
+    print(isOpenSlider.value);
   }
+
+  void eventSlideSlider() {
+    if (!isOpenSlider.value) {
+      isOpenSlider.value = true;
+    }
+  }
+
+  void eventCloseSlide() {
+    if (isOpenSlider.value) {
+      isOpenSlider.value = false;
+    }
+  }
+
+  Obx generateViewKontak() => Obx(() {
+        if (this.isOpenSlider.value && this.isLoadingData.value) {
+          return LoadingKontak();
+        } else {
+          return NotFoundKontak();
+        }
+      });
 }

@@ -25,6 +25,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.0
   flutter_keyboard_visibility: ^3.3.0
+  flutter_slidable: ^0.5.7
   get: ^3.17.1
   google_fonts: ^1.1.1
   lottie: ^0.7.0+1

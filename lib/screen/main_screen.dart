@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -20,13 +21,20 @@ class MainScreen extends StatelessWidget {
             SlidingUpPanel(
               controller: mainController.panelController,
               renderPanelSheet: false,
-              onPanelOpened: () => mainController.unFocusTextField(context),
+              onPanelOpened: () => mainController.eventOpenSlider(context),
+              onPanelSlide: (_) => mainController.eventSlideSlider(),
+              onPanelClosed: () => mainController.eventCloseSlide(),
               minHeight: Get.pixelRatio * 17,
               backdropEnabled: true,
               backdropTapClosesPanel: true,
               borderRadius: _buildBorderRadiusPanel(),
               collapsed: HeaderPanel(mainController: mainController),
-              panel: ContentPanel(),
+              // panel: ContentPanel(),
+              // header: HeaderPanel(mainController: mainController),
+              panelBuilder: (ScrollController scrollController) => ContentPanel(
+                scrollController: scrollController,
+                mainController: mainController,
+              ),
             ),
           ],
         ),
@@ -36,23 +44,117 @@ class MainScreen extends StatelessWidget {
 }
 
 class ContentPanel extends StatelessWidget {
-  const ContentPanel({
-    Key key,
-  }) : super(key: key);
+  const ContentPanel({Key key, this.scrollController, this.mainController})
+      : super(key: key);
+
+  final ScrollController scrollController;
+  final MainController mainController;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius:
-            BorderRadius.all(Radius.circular(Get.pixelRatio * 6)),
+        borderRadius: BorderRadius.all(Radius.circular(Get.pixelRatio * 6)),
       ),
-      margin: EdgeInsets.fromLTRB(Get.pixelRatio * 4, 0,
-          Get.pixelRatio * 4, Get.pixelRatio * 4),
+      margin: EdgeInsets.fromLTRB(
+          Get.pixelRatio * 4, 0, Get.pixelRatio * 4, Get.pixelRatio * 4),
       child: Center(
-        child: Text("This is the SlidingUpPanel when open"),
+        child: mainController.generateViewKontak(),
+        // ListView.builder(
+        //   controller: scrollController,
+        //   itemCount: 50,
+        //   itemBuilder: (BuildContext context, int i) {
+        //     return Slidable(
+        //       actionPane: SlidableBehindActionPane(),
+        //       actionExtentRatio: 0.25,
+        //       child: Container(
+        //         color: Colors.white,
+        //         child: ListTile(
+        //           leading: CircleAvatar(
+        //             backgroundColor: Colors.indigoAccent,
+        //             child: Text('3'),
+        //             foregroundColor: Colors.white,
+        //           ),
+        //           title: Text('Tile n°4'),
+        //           subtitle: Text('SlidableDrawerDelegate'),
+        //         ),
+        //       ),
+        //       actions: <Widget>[
+        //         IconSlideAction(
+        //           caption: 'Archive',
+        //           color: Colors.blue,
+        //           icon: Icons.archive,
+        //           onTap: () => {},
+        //         ),
+        //       ],
+        //       secondaryActions: <Widget>[
+        //         IconSlideAction(
+        //           caption: 'More',
+        //           color: Colors.black45,
+        //           icon: Icons.more_horiz,
+        //           onTap: () => {},
+        //         ),
+        //       ],
+        //     );
+        //   },
+        // ),
       ),
+    );
+  }
+}
+
+class NotFoundKontak extends StatelessWidget {
+  const NotFoundKontak({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: Get.pixelRatio * 30,
+            child: Lottie.asset(
+              'assets/lottie/notfan.json',
+              reverse: true,
+            ),
+          ),
+          Text(
+            'Tidak ada histori',
+            style: GoogleFonts.roboto(
+              fontSize: Get.pixelRatio * 5,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class LoadingKontak extends StatelessWidget {
+  const LoadingKontak({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: Get.pixelRatio * 30,
+          child: Lottie.asset('assets/lottie/loading.json', reverse: true),
+        ),
+        Text(
+          'Loading ...',
+          style: GoogleFonts.roboto(
+            fontSize: Get.pixelRatio * 5,
+          ),
+        )
+      ],
     );
   }
 }
@@ -70,11 +172,10 @@ class HeaderPanel extends StatelessWidget {
     return GestureDetector(
       onTap: () => mainController.panelController.open(),
       child: Container(
-        margin: EdgeInsets.fromLTRB(
-            Get.pixelRatio * 4, 0, Get.pixelRatio * 4, 0),
+        margin:
+            EdgeInsets.fromLTRB(Get.pixelRatio * 4, 0, Get.pixelRatio * 4, 0),
         decoration: BoxDecoration(
-            color: Color(0xFF6f86d6),
-            borderRadius: _buildBorderRadiusPanel()),
+            color: Color(0xFF6f86d6), borderRadius: _buildBorderRadiusPanel()),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -238,7 +339,7 @@ class AnimationImage extends StatelessWidget {
         child: Container(
           height: 200,
           width: 300,
-          child: Lottie.asset('assets/lottie/chat.json'),
+          child: Lottie.asset('assets/lottie/chat.json', reverse: true),
         ),
       ),
     );
