@@ -25,6 +25,7 @@ class MainController extends GetxController {
     }
 
     print(finishLaunch);
+    // TODO Belom slesai disini
   }
 
   void unFocusTextField(BuildContext context) {
