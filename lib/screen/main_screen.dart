@@ -155,6 +155,7 @@ class MainScreen extends StatelessWidget {
               ),
             ),
             SlidingUpPanel(
+              onPanelOpened: () => mainController.unFocusTextField(context),
               minHeight: Get.pixelRatio * 17,
               backdropEnabled: true,
               backdropTapClosesPanel: true,

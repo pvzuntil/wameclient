@@ -7,27 +7,30 @@ import 'package:wameclient/utils/utils.dart';
 class MainController extends GetxController {
   TextEditingController textEditingControllerNo = TextEditingController();
   MaskTextInputFormatter textMaskTelephone = MaskTextInputFormatter(
-    mask: '+## ###-####-####-#',
-    filter: {
-      '#': RegExp(r'[0-9]')
-    }
-  );
+      mask: '+## ###-####-####-#', filter: {'#': RegExp(r'[0-9]')});
 
-  void waNow({String nomer}) async{
+  void waNow({String nomer}) async {
     String newNomer;
 
-    if(nomer[0] == '0'){
+    if (nomer[0] == '0') {
       newNomer = '62${Utils().replaceCharAt(nomer, 0, '')}';
-    }else{
+    } else {
       newNomer = nomer;
     }
-    
+
     String urlWa = 'https://wa.me/$newNomer';
     bool finishLaunch;
-    if(await canLaunch(urlWa)){
+    if (await canLaunch(urlWa)) {
       finishLaunch = await launch(urlWa);
     }
 
     print(finishLaunch);
+  }
+
+  void unFocusTextField(BuildContext context) {
+    FocusScopeNode focusScopeNode = FocusScope.of(context);
+    if (!focusScopeNode.hasPrimaryFocus) {
+      focusScopeNode.unfocus();
+    }
   }
 }
