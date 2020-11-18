@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -42,6 +44,10 @@ class MainController extends GetxController {
 
     print('terbuka');
     print(isOpenSlider.value);
+
+    Timer(Duration(seconds: 3), () {
+      isLoadingData.value = false;
+    });
   }
 
   void eventSlideSlider() {
@@ -54,10 +60,13 @@ class MainController extends GetxController {
     if (isOpenSlider.value) {
       isOpenSlider.value = false;
     }
+    if (!isLoadingData.value) {
+      isLoadingData.value = true;
+    }
   }
 
   Obx generateViewKontak() => Obx(() {
-        if (this.isOpenSlider.value && this.isLoadingData.value) {
+        if (isOpenSlider.value && isLoadingData.value) {
           return LoadingKontak();
         } else {
           return NotFoundKontak();
