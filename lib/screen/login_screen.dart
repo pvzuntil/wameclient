@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:wameclient/controller/login_controller.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    LoginController loginController = Get.put(LoginController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
@@ -61,11 +63,13 @@ class LoginScreen extends StatelessWidget {
                       FormTextField(
                         label: 'Masukkan Email ...',
                         keyboardType: TextInputType.emailAddress,
+                        controller: loginController.textConEmail,
                       ),
                       FormTextField(
                         label: 'Masukkan Password ...',
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: true,
+                        controller: loginController.textConPassword,
                       ),
                       Container(
                         margin: EdgeInsets.only(top: Get.pixelRatio * 10),
@@ -79,8 +83,19 @@ class LoginScreen extends StatelessWidget {
                                     Get.pixelRatio * 3,
                                   ),
                                 ),
-                                onPressed: () => {},
-                                child: Text('LOGIN'),
+                                onPressed: () =>
+                                    loginController.doLogin(context: context),
+                                child: Obx(
+                                  () => loginController.isLodingLogin.value
+                                      ? SizedBox(
+                                          width: Get.pixelRatio * 7,
+                                          height: Get.pixelRatio * 7,
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: Get.pixelRatio,
+                                          ),
+                                        )
+                                      : Text('LOGIN'),
+                                ),
                               ),
                             ),
                           ],
