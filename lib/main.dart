@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:wameclient/screen/login_screen.dart';
 import 'package:wameclient/screen/main_screen.dart';
 
-main() => runApp(MyApp());
+main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // var myCustomUniqueUserId = "iniadalahid";
+  // OneSignal.shared.setExternalUserId(myCustomUniqueUserId);
+
+  OneSignal.shared
+      .init("efe37717-8b79-4653-b853-4cbe840260a1", iOSSettings: null);
+  OneSignal.shared
+      .setInFocusDisplayType(OSNotificationDisplayType.notification);
+
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -22,10 +35,16 @@ class MyApp extends StatelessWidget {
           page: () => KeyboardDismissOnTap(child: LoginScreen()),
         ),
       ],
+      onInit: () {
+        OneSignal.shared
+            .setNotificationReceivedHandler((OSNotification notification) {
+              print(notification.payload);
+        });
+      },
     );
   }
 }
 
-String initialRoute(){
+String initialRoute() {
   return '/login';
 }
