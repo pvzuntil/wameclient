@@ -31,6 +31,23 @@ class Utils {
     );
   }
 
+  void snackSuccess({@required String message}) {
+    return Get.snackbar(
+      'Berhasil !',
+      this.capitalize(message),
+      overlayBlur: 0,
+      margin: EdgeInsets.all(0),
+      borderRadius: 0,
+      backgroundColor: Colors.green,
+      icon: Icon(
+        Icons.error_outline,
+        color: Colors.white,
+      ),
+      snackPosition: SnackPosition.BOTTOM,
+      colorText: Colors.white,
+    );
+  }
+
   String capitalize(String string) {
     if (string == null) {
       throw ArgumentError.notNull('string');
