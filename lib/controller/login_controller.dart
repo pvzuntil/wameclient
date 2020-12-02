@@ -3,13 +3,21 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:wameclient/controller/controller.dart';
 import 'package:wameclient/model/AuthModel.dart';
 import 'package:wameclient/screen/main_screen.dart';
 import 'package:wameclient/utils/utils.dart';
 
 class LoginController extends GetxController {
+  Controller controller = Get.find<Controller>();
+
   TextEditingController textConEmail = TextEditingController();
   TextEditingController textConPassword = TextEditingController();
+
+  @override
+  void onInit() {
+    super.onInit();
+  }
 
   var isLodingLogin = false.obs;
 
@@ -38,6 +46,7 @@ class LoginController extends GetxController {
       return Utils.snackError(message: result.message);
     }
 
-    return Get.off(MainScreen());
+    controller.gs.write('authToken', result.data.token);
+    // return Get.offAll(MainScreen());
   }
 }
