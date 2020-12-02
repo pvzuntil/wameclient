@@ -21,7 +21,7 @@ class MainController extends GetxController {
     String newNomer;
 
     if (nomer[0] == '0') {
-      newNomer = '62${Utils().replaceCharAt(nomer, 0, '')}';
+      newNomer = '62${Utils.replaceCharAt(nomer, 0, '')}';
     } else {
       newNomer = nomer;
     }

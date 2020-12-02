@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Utils {
-  String replaceCharAt(String oldString, int index, String newChar) {
+  static String replaceCharAt(String oldString, int index, String newChar) {
     return oldString.substring(0, index) +
         newChar +
         oldString.substring(index + 1);
   }
 
-  String apiUrl() {
+  static String apiUrl() {
     return 'https://wameserver.herokuapp.com/';
   }
 
-  Map<String, String> httpJson() => {"Content-Type": "application/json"};
+  static Map<String, String> httpJson() => {"Content-Type": "application/json"};
 
-  void snackError({@required String message}) {
+  static void snackError({@required String message}) {
     return Get.snackbar(
       'Gagal !',
-      this.capitalize(message),
+      Utils.capitalize(message),
       overlayBlur: 0,
       margin: EdgeInsets.all(0),
       borderRadius: 0,
@@ -31,10 +31,10 @@ class Utils {
     );
   }
 
-  void snackSuccess({@required String message}) {
+  static void snackSuccess({@required String message}) {
     return Get.snackbar(
       'Berhasil !',
-      this.capitalize(message),
+      Utils.capitalize(message),
       overlayBlur: 0,
       margin: EdgeInsets.all(0),
       borderRadius: 0,
@@ -48,7 +48,7 @@ class Utils {
     );
   }
 
-  String capitalize(String string) {
+  static String capitalize(String string) {
     if (string == null) {
       throw ArgumentError.notNull('string');
     }

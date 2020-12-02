@@ -27,15 +27,15 @@ class LoginController extends GetxController {
     );
 
     http.Response response = await http.post(
-      Utils().apiUrl() + 'auth/login',
-      headers: Utils().httpJson(),
+      Utils.apiUrl() + 'auth/login',
+      headers: Utils.httpJson(),
       body: jsonEncode(req),
     );
     AuthModel result = AuthModel.fromJson(jsonDecode(response.body));
 
     this.isLodingLogin.value = false;
     if (result.status == 0) {
-      return Utils().snackError(message: result.message);
+      return Utils.snackError(message: result.message);
     }
 
     return Get.off(MainScreen());
