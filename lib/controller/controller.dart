@@ -18,5 +18,7 @@ class Controller extends GetxController {
     return '/login';
   }
 
+  String getToken() => gs.read('authToken');
+
   void storeCurrentUser() {}
 }

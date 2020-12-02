@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wameclient/controller/controller.dart';
 
 class Utils {
+  static Controller controller = Get.find<Controller>();
+
   static String replaceCharAt(String oldString, int index, String newChar) {
     return oldString.substring(0, index) +
         newChar +
@@ -13,6 +16,11 @@ class Utils {
   }
 
   static Map<String, String> httpJson() => {"Content-Type": "application/json"};
+  static Map<String, String> httpJsonWithAuth() {
+    Map opt = Utils.httpJson();
+    opt['auth-token'] = Utils.controller.getToken();
+    return opt;
+  }
 
   static void snackError({@required String message}) {
     return Get.snackbar(
