@@ -42,9 +42,6 @@ class MainController extends GetxController {
       focusScopeNode.unfocus();
     }
 
-    print('terbuka');
-    print(isOpenSlider.value);
-
     Timer(Duration(seconds: 3), () {
       isLoadingData.value = false;
     });

@@ -337,9 +337,8 @@ class AnimationImage extends StatelessWidget {
       child: Align(
         alignment: Alignment.center,
         child: Container(
-          // TODO respondsifkan ini
-          height: 200,
-          width: 300,
+          height: Get.pixelRatio * 66.666666667,
+          width: Get.pixelRatio * 100,
           child: Lottie.asset('assets/lottie/chat.json', reverse: true),
         ),
       ),
