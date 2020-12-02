@@ -47,6 +47,6 @@ class LoginController extends GetxController {
     }
 
     controller.gs.write('authToken', result.data.token);
-    // return Get.offAll(MainScreen());
+    return Get.offAll(MainScreen());
   }
 }

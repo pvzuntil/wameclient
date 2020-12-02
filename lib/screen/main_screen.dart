@@ -30,7 +30,53 @@ class MainScreen extends StatelessWidget {
               borderRadius: _buildBorderRadiusPanel(),
               collapsed: HeaderPanel(mainController: mainController),
               // panel: ContentPanel(),
-              // header: HeaderPanel(mainController: mainController),
+              header: Container(
+                width: Get.width,
+                // height: Get.pixelRatio * 10,
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: Get.pixelRatio * 4),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(Get.pixelRatio * 6),
+                      topRight: Radius.circular(Get.pixelRatio * 6),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.exit_to_app),
+                        onPressed: () {
+                          Get.dialog(
+                            AlertDialog(
+                              title: Text('Peringatan !'),
+                              content: Container(
+                                child: Text('Apakah anda ingin keluar ?'),
+                              ),
+                              actions: [
+                                FlatButton(
+                                  onPressed: () => Get.back(),
+                                  child: Text(
+                                    'Batal',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ),
+                                FlatButton(
+                                  onPressed: () => mainController.doLogout(),
+                                  child: Text('Ya'),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      )
+                    ],
+                  ),
+                ),
+              ),
               panelBuilder: (ScrollController scrollController) => ContentPanel(
                 scrollController: scrollController,
                 mainController: mainController,
@@ -61,44 +107,44 @@ class ContentPanel extends StatelessWidget {
           Get.pixelRatio * 4, 0, Get.pixelRatio * 4, Get.pixelRatio * 4),
       child: Center(
         child: mainController.generateViewKontak(),
-        // ListView.builder(
-        //   controller: scrollController,
-        //   itemCount: 50,
-        //   itemBuilder: (BuildContext context, int i) {
-        //     return Slidable(
-        //       actionPane: SlidableBehindActionPane(),
-        //       actionExtentRatio: 0.25,
-        //       child: Container(
-        //         color: Colors.white,
-        //         child: ListTile(
-        //           leading: CircleAvatar(
-        //             backgroundColor: Colors.indigoAccent,
-        //             child: Text('3'),
-        //             foregroundColor: Colors.white,
+        //   ListView.builder(
+        //     controller: scrollController,
+        //     itemCount: 50,
+        //     itemBuilder: (BuildContext context, int i) {
+        //       return Slidable(
+        //         actionPane: SlidableBehindActionPane(),
+        //         actionExtentRatio: 0.25,
+        //         child: Container(
+        //           color: Colors.white,
+        //           child: ListTile(
+        //             leading: CircleAvatar(
+        //               backgroundColor: Colors.indigoAccent,
+        //               child: Text('3'),
+        //               foregroundColor: Colors.white,
+        //             ),
+        //             title: Text('Tile n°4'),
+        //             subtitle: Text('SlidableDrawerDelegate'),
         //           ),
-        //           title: Text('Tile n°4'),
-        //           subtitle: Text('SlidableDrawerDelegate'),
         //         ),
-        //       ),
-        //       actions: <Widget>[
-        //         IconSlideAction(
-        //           caption: 'Archive',
-        //           color: Colors.blue,
-        //           icon: Icons.archive,
-        //           onTap: () => {},
-        //         ),
-        //       ],
-        //       secondaryActions: <Widget>[
-        //         IconSlideAction(
-        //           caption: 'More',
-        //           color: Colors.black45,
-        //           icon: Icons.more_horiz,
-        //           onTap: () => {},
-        //         ),
-        //       ],
-        //     );
-        //   },
-        // ),
+        //         actions: <Widget>[
+        //           IconSlideAction(
+        //             caption: 'Archive',
+        //             color: Colors.blue,
+        //             icon: Icons.archive,
+        //             onTap: () => {},
+        //           ),
+        //         ],
+        //         secondaryActions: <Widget>[
+        //           IconSlideAction(
+        //             caption: 'More',
+        //             color: Colors.black45,
+        //             icon: Icons.more_horiz,
+        //             onTap: () => {},
+        //           ),
+        //         ],
+        //       );
+        //     },
+        //   ),
       ),
     );
   }

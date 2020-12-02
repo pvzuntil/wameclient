@@ -5,10 +5,14 @@ import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:wameclient/controller/controller.dart';
+import 'package:wameclient/screen/login_screen.dart';
 import 'package:wameclient/screen/main_screen.dart';
 import 'package:wameclient/utils/utils.dart';
 
 class MainController extends GetxController {
+  Controller controller = Get.find<Controller>();
+
   TextEditingController textEditingControllerNo = TextEditingController();
   MaskTextInputFormatter textMaskTelephone = MaskTextInputFormatter(
       mask: '+## ###-####-####-#', filter: {'#': RegExp(r'[0-9]')});
@@ -62,11 +66,18 @@ class MainController extends GetxController {
     }
   }
 
-  Obx generateViewKontak() => Obx(() {
-        if (isOpenSlider.value && isLoadingData.value) {
-          return LoadingKontak();
-        } else {
-          return NotFoundKontak();
-        }
-      });
+  Obx generateViewKontak() => Obx(
+        () {
+          if (isOpenSlider.value && isLoadingData.value) {
+            return LoadingKontak();
+          } else {
+            return NotFoundKontak();
+          }
+        },
+      );
+
+  void doLogout(){
+    controller.gs.remove('authToken');
+    Get.offAll(LoginScreen());
+  }
 }

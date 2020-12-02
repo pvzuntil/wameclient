@@ -12,7 +12,6 @@ class Controller extends GetxController {
 
   String initialRoute() {
     bool hasToken = gs.hasData('authToken');
-    print(hasToken);
     if (hasToken) {
       return '/';
     }
